@@ -20,6 +20,7 @@ CORS=*
 ### -----------------------------------
 //Ejecutar en modo FORK y puerto 9001
 forever index.js -p 9001
+
 //Ejecutar en modo CLUSTER y puerto 8080
 forever index.js -p 8080 -m CLUSTER
 
@@ -27,6 +28,7 @@ forever index.js -p 8080 -m CLUSTER
 ### -----------------------------------
 //Ejecutar en modo FORK
 pm2 start index.js --name="appFork" -i max --watch
+
 //Ejecutar en modo CLUSTER
 pm2 start index.js --name="appCluster" -i max --watch
 
