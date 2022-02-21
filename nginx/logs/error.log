@@ -1,0 +1,10 @@
+2022/02/14 19:09:57 [error] 24608#16668: *1 CreateFile() "D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\nginx-1.21.6/html/favicon.ico" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/02/14 19:15:11 [notice] 23900#17284: signal process started
+2022/02/14 19:19:11 [notice] 9924#26764: signal process started
+2022/02/14 19:19:11 [error] 9924#26764: CreateFile() "D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\nginx-1.21.6/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2022/02/14 19:19:46 [notice] 24104#18980: signal process started
+2022/02/14 19:19:46 [error] 24104#18980: CreateFile() "D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\nginx-1.21.6/logs/nginx.pid" failed (2: El sistema no puede encontrar el archivo especificado)
+2022/02/14 19:24:12 [notice] 11232#9772: signal process started
+2022/02/14 20:12:12 [emerg] 24340#25576: invalid parameter "8081" in D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\42-clase-30-proxy-nginx\nginx/conf/nginx.conf:21
+2022/02/21 17:28:18 [emerg] 4752#15720: invalid parameter "8082" in D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\44-desafio-clase-30-servidor-con-balance-de-carga\nginx/conf/nginx.conf:21
+2022/02/21 17:28:39 [emerg] 620#14476: invalid parameter "8082" in D:\Cursos-Parte-2\000 Coderhouse\04 NodeJS\44-desafio-clase-30-servidor-con-balance-de-carga\nginx/conf/nginx.conf:21

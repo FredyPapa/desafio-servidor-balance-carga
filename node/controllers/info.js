@@ -1,9 +1,12 @@
 const {response, request} = require("express");
+let numCPUs = require('os').cpus().length;
+//
 //
 let { fork } = require("child_process");
 //
 //Mostrar información
 const mostrarDatos = async(req=request,res=response,next)=>{
+
     res.render("../info",{
         argumentos:JSON.stringify(process.argv.slice(2)),
         plataforma:process.platform,
@@ -11,7 +14,8 @@ const mostrarDatos = async(req=request,res=response,next)=>{
         memoria:JSON.stringify(process.memoryUsage()),
         pathEjecucion:process.execPath,
         pid:process.pid,
-        carpeta:process.cwd()
+        carpeta:process.cwd(),
+        totalProcesadores:numCPUs
     });
 }
 //Mostrar información

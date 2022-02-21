@@ -6,18 +6,21 @@ let hbs = require("express-handlebars");
 let cors = require("cors");
 const {validarSesion} = require("../utils/validar-session");
 const mongoose = require('mongoose');
+//
 //Usamos Yargs para enviar el puerto como argumento o por defecto 8080
 let yarg = require('yargs');
 let options = {
     default:{
-        p:8080
+        p:8080,
+        m: "FORK"
     }
 }
 const procArgv = yarg(process.argv.slice(2));
 const argsRes = procArgv.default(options.default).argv;
 let puertoYarg = argsRes.p;
+let modoYarg = argsRes.m;
 //console.log("yarg: ",puertoYarg);
-
+//console.log("yarg: ",modoYarg);
 //
 mongoose.connect(process.env.CONNECTION_STRING)
 .then(()=>{
@@ -37,6 +40,8 @@ class server{
         this.productosPath = "/api/productos";
         this.loginPath = "/";
         this.infoPath = "/";
+        this.cluster = require('cluster');
+        this.numCPUs = require('os').cpus().length;
         //Middlewares
         this.middlewares();
         //Rutas de mi aplicación
@@ -50,7 +55,7 @@ class server{
             res.render("../index", {});
         });
         //Sockets
-        this.sockets();
+        //this.sockets();
         //
         this.usuarios = [];
         this.mensajes = [];
@@ -63,7 +68,7 @@ class server{
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:true}));
         //Directorio público
-        this.app.use(express.static('public'));
+//        this.app.use(express.static('public'));
         //Sesiones
         this.app.use(expressSession({
             store: MongoStore.create({
@@ -152,14 +157,32 @@ class server{
     }
 
     listen(){
-        /*this.server.listen(this.port,()=>{
-            console.log(`Servidor corriendo en http://localhost:${this.port}`);
-        });*/
-        this.server.listen(puertoYarg,()=>{
-            console.log(`Servidor corriendo en http://localhost:${puertoYarg}`);
-        });
+        console.log(modoYarg);
+        if(modoYarg=="FORK"){
+            this.server.listen(puertoYarg,()=>{
+                console.log(`Servidor corriendo en http://localhost:${puertoYarg}`);
+            });
+        }else{
+            if(this.cluster.isMaster){
+                console.log(`Master PID -> ${process.pid}`);
+                //Workers
+                for (let i = 0; i < this.numCPUs; i++) {
+                    console.log("i: "+(i+1));
+                    this.cluster.fork();
+                }
+                //
+                this.cluster.on("exit",(worker, code, signal)=>{
+                    console.log(`Murió el subproceso ${worker.process.pid}`);
+                    this.cluster.fork();
+                })
+            }else{
+            }
+                this.server.listen(puertoYarg,()=>{
+                    console.log(`Servidor corriendo en http://localhost:${puertoYarg}`);
+                });
+            }
+        }
     }
-}
 
 //Exportamos la clase
 module.exports = server;
