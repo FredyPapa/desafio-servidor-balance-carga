@@ -34,7 +34,7 @@ forever index.js -p 8080 -m CLUSTER
 ### Ejecutar el servidor con PM2
 #### Ejecutar en modo FORK
 ~~~
-pm2 start index.js --name="appFork" -i max --watch
+pm2 start index.js --name="appFork" --watch
 ~~~
 
 #### Ejecutar en modo CLUSTER
