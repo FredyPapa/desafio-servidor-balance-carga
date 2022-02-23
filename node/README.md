@@ -31,14 +31,15 @@ forever index.js -p 9001
 forever index.js -p 8080 -m CLUSTER
 ~~~
 
+#### Ejecutar en modo CLUSTER
+~~~
+pm2 start index.js --name="appCluster" -i max --watch
+~~~
+
 ### Ejecutar el servidor con PM2
 #### Ejecutar en modo FORK
 ~~~
 pm2 start index.js --name="appFork" --watch
 ~~~
 
-#### Ejecutar en modo CLUSTER
-~~~
-pm2 start index.js --name="appCluster" -i max --watch
-~~~
 
